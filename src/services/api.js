@@ -1,75 +1,40 @@
+const API_URL = "http://localhost:3000";
 
-const API_URL = "https://db.ygoprodeck.com/api/v7/cardinfo.php";
-
-export async function getCards(offset = 0) {
-    try {
-        const url = `${API_URL}?num=20&offset=${offset}`;
-
-        const response = await fetch(url);
-
-        if (!response.ok) {
-            throw new Error("Failed to fetch cards");
-        }
-
-        const result = await response.json();
-
-        return result.data.map(card => transformCard(card));
-
-    } catch (error) {
-        throw error;
-    }
-}
-
-export async function searchCards(name) {
-    try {
-        const url = `${API_URL}?fname=${encodeURIComponent(name)}`;
-
-        const response = await fetch(url);
-
-        if (!response.ok) {
-            throw new Error("Failed to search cards");
-        }
-        
-        const result = await response.json();
-
-        return result.data.map(card => transformCard(card));
-
-    } catch (error) {
-        throw error;
-    }
-}
-
-function transformCard(card) {
-    return {
-        id: card.id,
-        name: card.name,
-        type: card.type,
-        attribute: card.attribute ?? "Unknown",
-        race: card.race,
-        level: card.level ?? 0,
-        stats: {
-            atk: card.atk ?? 0,
-            def: card.def ?? 0
-        },
-
-        image: card.card_images?.[0]?.image_url ?? "",
-        description: card.desc
+export async function request(method, route, body = null){
+    
+    const options = {
+        method: method,
+        headers: {}
     };
-}
-export async function getCardDetail(id) {
-    try {
-        const url = `${API_URL}?id=${id}`;
-        const response = await fetch(url);
 
-        if (!response.ok) {
-            throw new Error("Failed to fetch card details");
+    if(body !== null){
+        options.header["content-type"] = "application/json";
+        options.body = JSON.stringify(body);
+    }
+
+    try{
+        const response = await fetch(`${API_URL}${route}`, options);
+
+        if(!response.ok) {
+            throw new error(`Erreur Api : ${response.stats}`);
         }
-
-        const result = await response.json();
-
-        return transformCard(result.data[0]);
-
-    } catch (error) {
+        if(method === "delete"){
+           return true;
+        }
+        return await response.json();
+    }
+    catch(error){
+        if(error instanceof TypeError) {
+            throw new Error("Impossible de contacter le serveur.");
+        }
         throw error;
     }
+}
+// GET : récupérer les créatures avec recherche et filtre
+export async function getCreatures(params = {}){
+
+    const query = new URLSearchParams(params).toString();
+    const route = query ? `/creatures?${query}`: "/creatures";
+
+    return await request("GET", route);
 }
