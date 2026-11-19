@@ -6,17 +6,14 @@
     --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
       "Noto Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
       "Segoe UI Symbol", "Noto Color Emoji";
-    --color-red-200: oklch(88.5% 0.062 18.334);
     --color-red-500: oklch(63.7% 0.237 25.331);
     --color-red-600: oklch(57.7% 0.245 27.325);
     --color-red-700: oklch(50.5% 0.213 27.518);
     --color-red-900: oklch(39.6% 0.141 25.723);
     --color-amber-400: oklch(82.8% 0.189 84.429);
     --color-amber-500: oklch(76.9% 0.188 70.08);
-    --color-amber-600: oklch(66.6% 0.179 58.318);
     --color-amber-700: oklch(55.5% 0.163 48.998);
     --color-yellow-500: oklch(79.5% 0.184 86.047);
-    --color-green-500: oklch(72.3% 0.219 149.579);
     --color-blue-500: oklch(62.3% 0.214 259.815);
     --color-gray-200: oklch(92.8% 0.006 264.531);
     --color-gray-300: oklch(87.2% 0.01 258.338);
@@ -44,10 +41,8 @@
     --text-4xl: 2.25rem;
     --text-4xl--line-height: calc(2.5 / 2.25);
     --font-weight-normal: 400;
-    --font-weight-semibold: 600;
     --font-weight-bold: 700;
     --font-weight-extrabold: 800;
-    --leading-tight: 1.25;
     --leading-relaxed: 1.625;
     --radius-lg: 0.5rem;
     --radius-xl: 0.75rem;
@@ -206,18 +201,6 @@
   }
 }
 @layer utilities {
-  .absolute {
-    position: absolute;
-  }
-  .relative {
-    position: relative;
-  }
-  .top-2 {
-    top: calc(var(--spacing) * 2);
-  }
-  .left-2 {
-    left: calc(var(--spacing) * 2);
-  }
   .mx-auto {
     margin-inline: auto;
   }
@@ -256,9 +239,6 @@
   }
   .aspect-\[3\/4\] {
     aspect-ratio: 3/4;
-  }
-  .aspect-\[4\/3\] {
-    aspect-ratio: 4/3;
   }
   .h-3 {
     height: calc(var(--spacing) * 3);
@@ -409,9 +389,6 @@
   .border-amber-400 {
     border-color: var(--color-amber-400);
   }
-  .border-amber-600 {
-    border-color: var(--color-amber-600);
-  }
   .border-amber-700 {
     border-color: var(--color-amber-700);
   }
@@ -420,9 +397,6 @@
   }
   .border-gray-300 {
     border-color: var(--color-gray-300);
-  }
-  .border-green-500 {
-    border-color: var(--color-green-500);
   }
   .border-red-500 {
     border-color: var(--color-red-500);
@@ -451,23 +425,11 @@
   .bg-amber-400 {
     background-color: var(--color-amber-400);
   }
-  .bg-black\/80 {
-    background-color: color-mix(in srgb, #000 80%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      background-color: color-mix(in oklab, var(--color-black) 80%, transparent);
-    }
-  }
   .bg-blue-500 {
     background-color: var(--color-blue-500);
   }
-  .bg-brand-light {
-    background-color: #E5E7EB;
-  }
   .bg-gray-200 {
     background-color: var(--color-gray-200);
-  }
-  .bg-red-200 {
-    background-color: var(--color-red-200);
   }
   .bg-red-600 {
     background-color: var(--color-red-600);
@@ -489,9 +451,6 @@
   }
   .object-cover {
     object-fit: cover;
-  }
-  .p-2 {
-    padding: calc(var(--spacing) * 2);
   }
   .p-3 {
     padding: calc(var(--spacing) * 3);
@@ -591,10 +550,6 @@
     --tw-leading: var(--leading-relaxed);
     line-height: var(--leading-relaxed);
   }
-  .leading-tight {
-    --tw-leading: var(--leading-tight);
-    line-height: var(--leading-tight);
-  }
   .font-bold {
     --tw-font-weight: var(--font-weight-bold);
     font-weight: var(--font-weight-bold);
@@ -607,19 +562,9 @@
     --tw-font-weight: var(--font-weight-normal);
     font-weight: var(--font-weight-normal);
   }
-  .font-semibold {
-    --tw-font-weight: var(--font-weight-semibold);
-    font-weight: var(--font-weight-semibold);
-  }
   .tracking-\[0\.2em\] {
     --tw-tracking: 0.2em;
     letter-spacing: 0.2em;
-  }
-  .break-words {
-    overflow-wrap: break-word;
-  }
-  .whitespace-normal {
-    white-space: normal;
   }
   .text-\[\#8B1E24\] {
     color: #8B1E24;
@@ -688,12 +633,6 @@
     outline-style: none;
   }
   @media (hover: hover) {
-    .hover\:scale-105:hover {
-      --tw-scale-x: 105%;
-      --tw-scale-y: 105%;
-      --tw-scale-z: 105%;
-      scale: var(--tw-scale-x) var(--tw-scale-y);
-    }
     .hover\:scale-110:hover {
       --tw-scale-x: 110%;
       --tw-scale-y: 110%;
@@ -747,20 +686,17 @@
     .sm\:flex-row {
       flex-direction: row;
     }
+    .sm\:items-center {
+      align-items: center;
+    }
     .sm\:justify-end {
       justify-content: flex-end;
     }
     .sm\:gap-2 {
       gap: calc(var(--spacing) * 2);
     }
-    .sm\:gap-3 {
-      gap: calc(var(--spacing) * 3);
-    }
     .sm\:gap-4 {
       gap: calc(var(--spacing) * 4);
-    }
-    .sm\:p-3 {
-      padding: calc(var(--spacing) * 3);
     }
     .sm\:p-4 {
       padding: calc(var(--spacing) * 4);

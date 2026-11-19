@@ -94,6 +94,18 @@
         <button type="button" data-type="DIVINE" class="chip shrink-0 transition-transform hover:scale-110">🔱
           DIVINE</button>
       </div>
+      <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+        <label for="sort" class="text-sm font-bold">
+          Trier par :
+        </label>
+
+        <select id="sort" class="field">
+          <option value="">Ordre par défaut</option>
+          <option value="name-asc">Nom A → Z</option>
+          <option value="name-desc">Nom Z → A</option>
+          <option value="numero">Numéro</option>
+        </select>
+      </div>
 
     </section>
 
@@ -260,7 +272,7 @@
         <!-- Numéro -->
         <label class=" flex min-w-0 flex-col gap-2 text-sm font-bold text-[#30251B]">
           Numéro
-          <input name="id" type="text" placeholder="#010" class="field w-full min-w-0 font-normal">
+          <input name="numero" type="text" placeholder="#001" class="field w-full min-w-0 font-normal">
           <span class="error-message text-sm font-normal text-red-700"></span>
         </label>
 
@@ -281,11 +293,10 @@
             <option value="WATER">💧 Eau</option>
             <option value="EARTH">🌍 Terre</option>
             <option value="WIND">🌪️ Vent</option>
-            <option value="DIVIN" >🔱 DIVINE</option>
+            <option value="DIVIN">🔱 DIVIN</option>
           </select>
           <span class="error-message text-sm font-normal text-red-700"></span>
         </label>
-
         <!-- Niveau -->
         <label class="flex min-w-0 flex-col gap-2 text-sm font-bold text-[#30251B]">
           Niveau
@@ -297,7 +308,7 @@
         <!-- ATK -->
         <label class="flex min-w-0 flex-col gap-2 text-sm font-bold text-[#30251B]">
           Attaque (ATK)
-          <input name="stat1" type="number" min="0" max="99999" placeholder="Ex. 2500"
+          <input name="atk" type="number" min="0" max="99999" placeholder="Ex. 2500"
             class="field w-full min-w-0 font-normal">
           <span class="error-message text-sm font-normal text-red-700"></span>
         </label>
@@ -305,7 +316,7 @@
         <!-- DEF -->
         <label class="flex min-w-0 flex-col gap-2 text-sm font-bold text-[#30251B]">
           Défense (DEF)
-          <input name="stat2" type="number" min="0" max="99999" placeholder="Ex. 2100"
+          <input name="def" type="number" min="0" max="99999" placeholder="Ex. 2100"
             class="field w-full min-w-0 font-normal">
           <span class="error-message text-sm font-normal text-red-700"></span>
         </label>
