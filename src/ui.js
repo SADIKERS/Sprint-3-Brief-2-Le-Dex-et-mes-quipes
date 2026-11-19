@@ -46,3 +46,46 @@ export function displayCreatures(creatures) {
         grid.append(card);
     });
 }
+
+//fichage carde detaill
+
+// Afficher les détails d'une créature
+export function displayCreatureDetail(creature) {
+    const detail = document.querySelector("#detail");
+
+    const detailTitle = document.querySelector("#detail-title");
+    const detailImage = document.querySelector("#detail-image");
+    const detailName = document.querySelector("#detail-name");
+    const detailType = document.querySelector("#detail-type");
+    const detailLevel = document.querySelector("#detail-level");
+    const detailLevelValue = document.querySelector("#detail-level-value");
+    const detailDescription = document.querySelector("#detail-description");
+
+    const detailAtk = document.querySelector("#detail-atk");
+    const detailDef = document.querySelector("#detail-def");
+
+    const detailAtkBar = document.querySelector("#detail-atk-bar");
+    const detailDefBar = document.querySelector("#detail-def-bar");
+    const detailLevelBar = document.querySelector("#detail-level-bar");
+
+    // Remplir les informations
+    detailTitle.textContent = `${creature.numero} - Détail`;
+    detailImage.src = creature.image;
+    detailImage.alt = creature.name;
+    detailName.textContent = creature.name;
+    detailType.textContent = creature.type;
+    detailLevel.textContent = creature.level;
+    detailLevelValue.textContent = creature.level;
+    detailDescription.textContent = creature.description;
+
+    detailAtk.textContent = creature.atk;
+    detailDef.textContent = creature.def;
+
+    // Mettre à jour les barres statistiques
+    detailAtkBar.style.width = `${(creature.atk / 4000) * 100}%`;
+    detailDefBar.style.width = `${(creature.def / 4000) * 100}%`;
+    detailLevelBar.style.width = `${(creature.level / 12) * 100}%`;
+
+    // Afficher le panneau
+    detail.classList.remove("hidden");
+}
