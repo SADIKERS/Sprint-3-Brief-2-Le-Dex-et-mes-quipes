@@ -1,16 +1,15 @@
 {
   "creatures": [
     {
-      "id": 1,
       "numero": "#001",
       "name": "Blue-Eyes White Dragon",
       "type": "LIGHT",
-      "race": "Dragon",
       "level": 8,
-      "atk": 3000,
+      "atk": 3001,
       "def": 2500,
       "image": "https://images.ygoprodeck.com/images/cards/89631139.jpg",
-      "description": "Un dragon légendaire connu pour sa puissance d'attaque exceptionnelle."
+      "description": "Un dragon légendaire connu pour sa puissance d'attaque exceptionnelle.",
+      "id": 1
     },
     {
       "id": 2,
@@ -215,28 +214,6 @@
       "def": 2000,
       "image": "https://images.ygoprodeck.com/images/cards/89943723.jpg",
       "description": "Un héros venu de l'espace qui combat pour protéger la justice."
-    },
-    {
-      "numero": "#019",
-      "name": "dfgdfg",
-      "type": "FIRE",
-      "level": 10,
-      "atk": 67,
-      "def": 48,
-      "image": "https://cdn.shopify.com/s/files/1/0568/2298/8958/files/most_powerful_monster_in_yugioh_2_5fb22955-8699-4aac-aa64-980f5c5d3c9e_480x480.png?v=1700557145",
-      "description": "gdfdfgdfgdfgfg",
-      "id": 19
-    },
-    {
-      "numero": "#020",
-      "name": "abdelilah",
-      "type": "WIND",
-      "level": 10,
-      "atk": 33,
-      "def": 23,
-      "image": "https://cdn.shopify.com/s/files/1/0568/2298/8958/files/most_powerful_monster_in_yugioh_2_5fb22955-8699-4aac-aa64-980f5c5d3c9e_480x480.png?v=1700557145",
-      "description": "lljknljlkhjoh",
-      "id": 20
     }
   ],
   "teams": []

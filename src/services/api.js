@@ -55,3 +55,13 @@ export async function getCreatureById(id) {
 export async function createCreature(data) {
     return await request("POST", "/creatures", data);
 }
+
+// PUT : modifier une créature
+export async function updateCreature(id, data) {
+    return await request("PUT", `/creatures/${id}`, data);
+}
+
+// DELETE : supprimer une créature
+export async function deleteCreature(id) {
+    return await request("DELETE", `/creatures/${id}`);
+}

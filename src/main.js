@@ -6,7 +6,9 @@
 import {
     getCreatures,
     getCreatureById,
-    createCreature
+    createCreature,
+    updateCreature,
+    deleteCreature
 } from "./services/api.js";
 
 import {
@@ -44,6 +46,9 @@ const clearSearchButton = document.querySelector("#clear-search");
 const sortSelect = document.querySelector("#sort");
 
 const creatureForm = document.querySelector("#creature-form");
+
+
+let editingId = null;
 
 // Restaurer le brouillon au chargement
 function restoreCreatureDraft() {
@@ -246,6 +251,77 @@ closeDetail.addEventListener("click", function () {
     detail.classList.add("hidden");
 });
 
+grid.addEventListener("click", async function (event) {
+    const button = event.target.closest("button[data-action]");
+
+    if (!button) return;
+
+    const card = button.closest("article[data-id]");
+
+    if (!card) return;
+
+    const id = card.dataset.id;
+    const action = button.dataset.action;
+
+    // MODIFIER
+    if (action === "edit") {
+        try {
+
+            const creature = await getCreatureById(id);
+
+            editingId = id;
+
+            Object.entries(creature).forEach(function ([name, value]) {
+                const field = creatureForm.elements[name];
+
+                if (field) {
+                    field.value = value;
+                }
+            });
+
+            document.querySelector("#create-title").textContent =
+                "Modifier la créature";
+
+            creatureForm.querySelector('[type="submit"]').textContent =
+                "Enregistrer les modifications";
+
+            clearFormErrors();
+
+            document.querySelector("#create").scrollIntoView({
+                behavior: "smooth"
+            });
+
+        } catch (error) {
+            message.textContent = error.message;
+        }
+    }
+
+    // SUPPRIMER
+    if (action === "delete") {
+        const confirmed = confirm("Voulez-vous vraiment supprimer cette créature ?");
+
+        if (!confirmed) return;
+
+        button.disabled = true;
+
+        try {
+            message.textContent = "Suppression en cours...";
+
+            await deleteCreature(id);
+
+            await loadCreatures();
+
+            detail.classList.add("hidden");
+
+            message.textContent = "Créature supprimée avec succès !";
+
+        } catch (error) {
+            message.textContent = error.message;
+            button.disabled = false;
+        }
+    }
+});
+
 
 /* =====================================================
    11. FORM VALIDATION HELPERS
@@ -361,34 +437,31 @@ creatureForm.querySelectorAll("input, select").forEach(function (input) {
 ===================================================== */
 
 creatureForm.addEventListener("submit", async function (event) {
-
     event.preventDefault();
 
-    // Récupérer les données
-    const newCreature = getFormData();
+    const submitButton = creatureForm.querySelector('[type="submit"]');
 
-    // Validation
-    const errors = validateCreature(newCreature);
+    const data = getFormData();
 
-    // Effacer les anciennes erreurs
+    const errors = validateCreature(data);
+
     clearFormErrors();
-
-    // Afficher les nouvelles erreurs
     showFormErrors(errors);
 
-    // Arrêter si les données sont invalides
-    if (Object.keys(errors).length > 0) {
-        return;
-    }
+    if (Object.keys(errors).length > 0) return;
+
+    submitButton.disabled = true;
 
     try {
+        message.textContent = editingId
+            ? "Modification en cours..."
+            : "Ajout en cours...";
 
-        message.textContent = "Ajout en cours...";
-        // Vérifier si le numéro existe déjà
         const creatures = await getCreatures();
 
         const numeroExists = creatures.some(function (creature) {
-            return creature.numero.toLowerCase() === newCreature.numero.toLowerCase();
+            return creature.numero.toLowerCase() === data.numero.toLowerCase()
+                && String(creature.id) !== String(editingId);
         });
 
         if (numeroExists) {
@@ -398,40 +471,45 @@ creatureForm.addEventListener("submit", async function (event) {
 
             return;
         }
-        // POST /creatures
-        await createCreature(newCreature);
 
-        // Supprimer le brouillon après succès
+        if (editingId) {
+            await updateCreature(editingId, {
+                ...data,
+                id: Number(editingId)
+            });
+
+            message.textContent = "Créature modifiée avec succès !";
+
+        } else {
+            await createCreature(data);
+
+            message.textContent = "Créature ajoutée avec succès !";
+        }
+
         clearCreatureDraft();
 
-        // Réinitialiser le formulaire
         creatureForm.reset();
-
-        // Effacer les erreurs
         clearFormErrors();
 
-        // Recharger les créatures
+        editingId = null;
+
+        document.querySelector("#create-title").textContent =
+            "Nouvelle créature";
+
+        submitButton.textContent = "+ Ajouter le monstre";
+
         await loadCreatures();
 
-        message.textContent = "Créature ajoutée avec succès !";
-
-        // Effacer les erreurs
-        clearFormErrors();
-
-        // Recharger les créatures
-        await loadCreatures();
-
-        // Message de succès
-        message.textContent = "Créature ajoutée avec succès !";
+        message.textContent = "Opération effectuée avec succès !";
 
     } catch (error) {
-
         message.textContent = error.message;
+        console.error(error);
 
-        console.error("Erreur lors de l'ajout :", error);
+    } finally {
+        submitButton.disabled = false;
     }
 });
-
 
 /* =====================================================
    14. INITIALISATION
