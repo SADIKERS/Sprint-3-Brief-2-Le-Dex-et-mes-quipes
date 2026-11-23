@@ -25,14 +25,6 @@ export function displayCreatures(creatures) {
         name.textContent = creature.name;
         name.className = "font-bold";
 
-        // Type
-        const type = document.createElement("p");
-        type.textContent = `Type : ${creature.type}`;
-
-        // Level
-        const level = document.createElement("p");
-        level.textContent = `Niveau : ${creature.level}`;
-
         // ATK
         const atk = document.createElement("p");
         atk.textContent = `ATK : ${creature.atk}`;
@@ -41,7 +33,29 @@ export function displayCreatures(creatures) {
         const def = document.createElement("p");
         def.textContent = `DEF : ${creature.def}`;
 
-        card.append(image, numero, name, type, level, atk, def);
+        // Boutons d'actions
+        const actions = document.createElement("div");
+        actions.className = "flex gap-2 mt-2";
+
+        // Bouton Modifier
+        const editButton = document.createElement("button");
+        editButton.type = "button";
+        editButton.textContent = "Modifier";
+        editButton.dataset.action = "edit";
+        editButton.className = "btn-primary flex-1";
+
+        // Bouton Supprimer
+        const deleteButton = document.createElement("button");
+        deleteButton.type = "button";
+        deleteButton.textContent = "Supprimer";
+        deleteButton.dataset.action = "delete";
+        deleteButton.className = "btn-outline flex-1";
+
+        // Ajouter les boutons
+        actions.append(editButton, deleteButton);
+
+        // Ajouter tous les éléments à la carte
+        card.append(image, numero, name, atk, def, actions);
 
         grid.append(card);
     });
@@ -89,3 +103,5 @@ export function displayCreatureDetail(creature) {
     // Afficher le panneau
     detail.classList.remove("hidden");
 }
+
+
