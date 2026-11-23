@@ -7,7 +7,7 @@ Ce projet est réalisé dans le cadre du Sprint 3 de la formation YouCode.
 
 ## 🌐 Démo en ligne
 
-🔗 **GitHub Pages :** [Voir le projet](https://VOTRE-USERNAME.github.io/VOTRE-REPOSITORY/)
+🔗 **GitHub Pages :** [Voir le projet](https://sadikers.github.io/Sprint-3-Brief-2-Le-Dex-et-mes-quipes/)
 
 > **Note :** GitHub Pages héberge uniquement des fichiers statiques. L'API locale `json-server` ne sera pas accessible en production depuis GitHub Pages. Une API distante devra être déployée pour rendre toutes les fonctionnalités dynamiques disponibles en ligne.
 
